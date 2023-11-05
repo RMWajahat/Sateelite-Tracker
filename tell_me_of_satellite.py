@@ -1,7 +1,7 @@
 import requests
 from datetime import datetime
 import smtplib as Reminder
-
+import time
 
 
 
@@ -99,8 +99,14 @@ def satellite_in_range():
 
 
 # NOW checking if its dark and satellite is in range So generate a message
+def Generate_request():
+    if is_Dark() and satellite_in_range():
+        Send_mail(mail=MY_mail,mail_pass=MY_mail_pass, alert_msg=activity_detected_message)
+    time.sleep(60)
+    Generate_request()
 
-if is_Dark() and satellite_in_range():
-    Send_mail(mail=MY_mail,mail_pass=MY_mail_pass, alert_msg=activity_detected_message)
-      
 
+
+
+# making a start of process
+Generate_request()
